@@ -108,6 +108,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Style.css">
+      <DependentUpon>Style.less</DependentUpon>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Index.html" />
@@ -399,6 +402,10 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\angular-strap.min.map" />
     <Content Include="Scripts\angular-strap.tpl.min.map" />
+    <Content Include="Content\Style.less" />
+    <Content Include="Content\Style.css.map">
+      <DependentUpon>Style.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\IIS.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
