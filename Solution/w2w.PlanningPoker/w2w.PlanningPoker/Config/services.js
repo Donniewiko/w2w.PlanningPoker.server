@@ -6,50 +6,6 @@
 
       var serverHub = $.connection.serverHub;
 
-      service.initSignalR = function () {
-         // client methods here
-         serverHub.client.registerUser = function (connectionID) {
-            $rootScope.$broadcast('registered', connectionID);
-         };
-
-         serverHub.client.proceedLogin = function (dashboard) {
-            if (dashboard) {
-               $state.go('dashboard');
-            } else {
-               $state.go('member');
-
-            }
-         };
-
-         serverHub.client.submitCards = function (pokerCards) {
-            $rootScope.$broadcast('pokerCards', pokerCards);
-         };
-
-         serverHub.client.teamMemberList = function (teamMembers) {
-            $rootScope.$broadcast('teamMemberResult', teamMembers);
-         }
-
-         serverHub.client.sessionInProgress = function (inProgress) {
-            $rootScope.$broadcast('sessionInProgress', inProgress);
-         };
-
-
-         serverHub.client.showResults = function (results) {
-            console.log(results);
-            $rootScope.$broadcast('results', results);
-         };
-         serverHub.client.cardReceived = function () {
-            $rootScope.$broadcast('cardReceived');
-         };
-
-         $.connection.hub.start().done(function () {
-         });
-
-
-
-         return true;
-      }();
-
       service.getCards = function () {
          return serverHub.server.getCards();
       }
@@ -66,10 +22,9 @@
          return serverHub.server.startRound();
       };
 
-      service.initTeamMembers = function () {
+      service.initTeamMembers = function() {
          return serverHub.server.initTeamMemberList();
-      }
-
+      };
 
       return service;
    }]);

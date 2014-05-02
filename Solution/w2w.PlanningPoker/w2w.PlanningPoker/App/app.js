@@ -5,7 +5,7 @@
 
    function baseController($scope, $state) {
       $scope.title = "Titel";
-      $state.go('login');
+      $state.go('dashboard');
    };
 
 })();
