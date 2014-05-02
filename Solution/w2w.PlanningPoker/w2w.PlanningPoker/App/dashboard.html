@@ -5,18 +5,16 @@
          <button type="button" class="btn btn-default" data-ng-click="startRound()">Start</button>
       </div>
    </div>
-   <div id="card-container">
-      <div id="card">
-         <div class="back"><p>3 SP</p></div>
-         <div class="front"></div>
-      </div>
-   </div>
-
    <div class="row">
       <div data-ng-repeat="member in teamMembers" class="col-xs-6 col-sm-4">
          <div class="panel panel-default">
             <div class="panel-heading">{{member.Name}}</div>
-            <div class="panel-body">{{member.SelectedCard}}</div>
+            <div id="card-container" data-ng-class="{'complete': flip}">
+               <div id="card">
+                  <div class="panel-body back"><p>{{member.SelectedCard}} SP</p></div>
+                  <div class="front"><p><i class="fa fa-question-circle fa-4"></i></p></div>
+               </div>
+            </div>
          </div>
       </div>
    </div>

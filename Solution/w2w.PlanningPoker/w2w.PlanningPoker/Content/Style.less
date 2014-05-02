@@ -1,7 +1,6 @@
 ﻿#card {
     -webkit-transform-style: preserve-3d;
     -webkit-perspective: 1000;
-    width: 250px;
     height: 250px;
     position: relative;
 }   
@@ -13,34 +12,51 @@
     height: 100%;   
     padding: 20px;
     font-family: Helvetica, Arial, sans-serif;
-
     font-weight: bold;
     border-radius: 4px;
-
 }
 .back {
     -webkit-transform: rotateY(180deg);
     overflow: hidden;}   
 .front {
 
-    background: url('http://upload.wikimedia.org/wikipedia/commons/2/25/Icon-round-Question_mark.jpg');
-    background-size: 100%;
+}
+
+.front p {
+
 }
 
 .back p{
-    color: #000;    
+
+}
+
+.back p, .front p{
+    color: #fff;    
+    background: #ef8716;
     font-size: 24px;
     text-align: center;
+    vertical-align: middle;
+    line-height: 200px;   
 }
+
 #card-container {
-    display: inline-block;
+    display: block;
     text-align: justify;
 }   
 
 //Should trigger once
-#card-container:hover .back {   
-    -webkit-transform: rotateY(0deg);
-}
-#card-container:hover .front {      
-    -webkit-transform: rotateY(-180deg);
-}
+   #card-container.complete .back {
+      -webkit-transform: rotateY(0);
+         -moz-transform: rotateY(0);
+          -ms-transform: rotateY(0);
+           -o-transform: rotateY(0);
+              transform: rotateY(0);
+   }
+   #card-container.complete .front {
+      -webkit-transform: rotateY(-180deg);
+      -moz-transform: rotateY(-180deg);
+      -ms-transform: rotateY(-180deg);
+      -o-transform: rotateY(-180deg);
+      transform: rotateY(-180deg);
+   }
+

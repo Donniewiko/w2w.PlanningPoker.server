@@ -55,6 +55,7 @@
          return true;
       }();
 
+      $scope.flip = false;
 
       $scope.teamMembers = [];
       $scope.sessionInProgress = false;
@@ -71,7 +72,7 @@
 
                }
             }
-            // match connectionID from results with teamMembers
+            $scope.flip = true;
          });
       });
 
@@ -86,6 +87,7 @@
       });
 
       $scope.startRound = function () {
+         $scope.flip = false;
          for (var j = 0; j < $scope.teamMembers.length; j++) {
             $scope.teamMembers[j].SelectedCard = null;
          };
