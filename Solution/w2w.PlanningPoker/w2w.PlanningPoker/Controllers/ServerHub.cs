@@ -2,6 +2,8 @@
 {
    using System.Collections.Generic;
    using System.Linq;
+   using System.Net;
+   using System.Net.Sockets;
    using System.Threading;
    using System.Threading.Tasks;
 
@@ -20,6 +22,16 @@
          Clients.Caller.RegisterUser(Context.ConnectionId);
 
          return base.OnConnected();
+      }
+
+      public void LocalIPAddress()
+      {
+         var ipAddress = Dns.GetHostEntry(Dns.GetHostName()).AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
+         if (ipAddress != null)
+         {
+            var localIP = ipAddress.ToString();
+
+         }
       }
 
       public static bool RoundInProgress { get; set; }
@@ -53,6 +65,15 @@
          }
       }
 
+      public void DisconnectUser()
+      {
+         var currentUser = (from t in TeamMembers where t.ConnectionID == Context.ConnectionId select t).SingleOrDefault();
+         if (currentUser != null)
+         {
+            teamMembers.Remove(currentUser);
+         }
+      }
+
       public void SubmitCard(string card)
       {
          var member = TeamMembers.SingleOrDefault(x => x.ConnectionID == Context.ConnectionId);
@@ -67,11 +88,7 @@
 
       public override Task OnDisconnected()
       {
-         var currentUser = (from t in TeamMembers where t.ConnectionID == Context.ConnectionId select t).SingleOrDefault();
-         if (currentUser != null)
-         {
-            teamMembers.Remove(currentUser);
-         }
+         this.DisconnectUser();
 
          return base.OnDisconnected();
       }
@@ -88,18 +105,16 @@
          return base.OnReconnected();
       }
 
-      public void RegisterTeamMember(string userName, bool dashboard, string connectionID)
+      public void RegisterTeamMember(string userName, string connectionID)
       {
-         if (!dashboard)
-         {
-            var teamMember = new TeamMember { ConnectionID = connectionID, Name = userName };
+         var teamMember = new TeamMember { ConnectionID = connectionID, Name = userName };
 
-            TeamMembers.Add(teamMember);
+         TeamMembers.Add(teamMember);
 
-            // update the member list
-            this.InitTeamMemberList();
-         }
-         Clients.Caller.ProceedLogin(dashboard);
+         // update the member list
+         this.InitTeamMemberList();
+
+         Clients.Caller.ProceedLogin(teamMember);
       }
 
       public void GetCards()
